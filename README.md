@@ -6,4 +6,6 @@ For Cloudflare Pages, connect `centrexity/Admins.net_dl` on the `main` branch, l
 
 The landing page lists the binaries currently present in `html/`. OpenWRT package files and installation notes are in `html/OpenWRT/`. This repository is a download site, not a Git server.
 
-Cloudflare Pages redirects both `/releases` and `/releases/` to the download homepage using `html/_redirects`.
+Cloudflare Pages redirects `/releases` and `/betas` (with or without a trailing slash) to the download homepage using `html/_redirects`.
+
+The `html/apt/`, `html/rpm/`, and `html/freebsd/` trees are placeholders for future package repositories. They do not contain packages or valid repository metadata yet. See [package repository notes](docs/package-repositories.md) before publishing packages or install instructions.
