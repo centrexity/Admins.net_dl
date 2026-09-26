@@ -16,9 +16,11 @@ Each root has `dists/` for release-specific indexes and `pool/main/` for `.deb` 
 
 Mint's main editions use an Ubuntu base, while LMDE uses a Debian base. Keep separate roots until each package is tested against the actual release. A package may be shared later if its compatibility is verified. Add only the codenames and architectures that are built and tested.
 
-## RPM
+## RPM-based Linux
 
 `html/rpm/Packages/` will hold RPMs and `html/rpm/repodata/` will hold generated DNF/YUM metadata. This is a single repository root for now. If packages differ by distribution, release, or architecture, create separate roots beneath `rpm/` before publishing client configuration. Generate `repodata/` with `createrepo_c` from the real package set and decide how RPM and repository metadata signatures will be published.
+
+The reader-facing name includes Fedora, RHEL-compatible distributions, and other Linux distributions that use RPM packages. The short `/rpm/` URL is a package-format path, not a claim that one build works on every RPM-based system.
 
 ## FreeBSD pkg
 
