@@ -1,0 +1,20 @@
+Acquire-By-Hash: yes
+Architectures: amd64
+Codename: stable
+Components: main
+Date: Wed, 07 Oct 2026 01:50:46 +0000
+Label: Admins.net mint
+Origin: Admins.net
+Suite: stable
+MD5Sum:
+ 850d9ca542a3882ca612accd8bbd12c0              930 main/binary-amd64/Packages
+ f9bdc536fe583f9a5a5ffc227c388ba8              607 main/binary-amd64/Packages.gz
+SHA1:
+ 2d69057f4a444a3176b76e23fdffb2bf89653f7a              930 main/binary-amd64/Packages
+ 57bae47bdf42a4d2fea37ed6af42af260a862d25              607 main/binary-amd64/Packages.gz
+SHA256:
+ d1dc1a6b1c95493a5b7bf8710580af9b896b3fe1c1e4a631a5d1b0a899de93e7              930 main/binary-amd64/Packages
+ 0869ca37880ba87b1f9ec908cd4417f3c7d66b28fe6d9e798fd7e99c8fabdb65              607 main/binary-amd64/Packages.gz
+SHA512:
+ 9de5723d8d7e546c0464e98c5e63374d0d8b603eecbd86e551db6dfbddda059f37ca64708cf528b911009fa8edb17e5dd0249aebce8662317d8ee76d4c53fdd2              930 main/binary-amd64/Packages
+ f8899e322d4cf78043331a0c4fbfcca0af7af056175625b41b8c9bb670f7ec1d52be75182dd1cd9394daed0a662c333def17e358655b52008262352813214488              607 main/binary-amd64/Packages.gz

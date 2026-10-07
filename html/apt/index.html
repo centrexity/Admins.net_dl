@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admins.net APT packages</title><link rel="icon" href="/favicon.ico">
+<style>:root{color-scheme:light dark;font-family:system-ui,sans-serif}body{max-width:58rem;margin:3rem auto;padding:0 1.25rem;line-height:1.5}pre{overflow:auto;padding:1rem;border:1px solid #888;border-radius:6px;font-size:.85rem}a{color:#3876dc}</style></head>
+<body><main><p><a href="/">All downloads</a></p><h1>Debian, Ubuntu, and Linux Mint</h1>
+<p>Admins.net <strong>amd64 preview</strong> — version 0.1.8~preview.20261006.1.</p>
+<p>Verified on Debian 12 and Ubuntu 24.04 containers, plus APT download and dependency checks on Linux Mint 22.3. Requires glibc 2.34 or newer. Desktop and remote-control features are still in development.</p>
+<h2>Install with APT</h2><p>Choose <code>debian</code>, <code>ubuntu</code>, or <code>mint</code> in the first line. Install curl and GnuPG first if needed: <code>sudo apt install curl gnupg</code>.</p>
+<pre><code>repo=mint
+test &quot;$(dpkg --print-architecture)&quot; = amd64 || { echo &#x27;amd64 required&#x27;; exit 1; }
+key_file=$(mktemp)
+curl -fsSL https://dl.admins.net/apt/admins-net-archive-keyring.gpg -o &quot;$key_file&quot;
+fingerprint=$(gpg --batch --show-keys --with-colons &quot;$key_file&quot; | awk -F: &#x27;$1 == &quot;fpr&quot; {print $10; exit}&#x27;)
+test &quot;$fingerprint&quot; = 24F98D0A6DCC21D4CE504C11DF26CB725FB409CF || { rm -f &quot;$key_file&quot;; echo &#x27;Unexpected signing key&#x27;; exit 1; }
+sudo install -d -m 0755 /etc/apt/keyrings
+sudo install -m 0644 &quot;$key_file&quot; /etc/apt/keyrings/admins-net-archive-keyring.gpg
+rm -f &quot;$key_file&quot;
+printf &#x27;deb [arch=amd64 signed-by=/etc/apt/keyrings/admins-net-archive-keyring.gpg] https://dl.admins.net/apt/%s stable main\n&#x27; &quot;$repo&quot; | sudo tee /etc/apt/sources.list.d/admins-net.list
+sudo apt update
+sudo apt install admins-net
+admins.net --help
+</code></pre>
+<p>Installation starts no services and opens no ports. Run <code>admins.net --help</code> to review available commands. The <code>stable</code> archive suite is independent of your OS codename; the application is a preview.</p>
+<p><a href="INSTALL.md">Full installation, update, and removal instructions</a></p>
+<h2>Direct downloads</h2><ul><li><a href="debian/pool/main/a/admins-net/admins-net_0.1.8~preview.20261006.1_amd64.deb">Debian amd64 .deb</a></li><li><a href="ubuntu/pool/main/a/admins-net/admins-net_0.1.8~preview.20261006.1_amd64.deb">Ubuntu amd64 .deb</a></li><li><a href="mint/pool/main/a/admins-net/admins-net_0.1.8~preview.20261006.1_amd64.deb">Linux Mint amd64 .deb</a></li></ul><p>Use the signed APT repository for automatic signature and checksum verification.</p>
+<p><a href="admins-net-archive-keyring.gpg">Public archive key</a> · <a href="signing-key-fingerprint.txt">Key fingerprint</a></p></main></body></html>

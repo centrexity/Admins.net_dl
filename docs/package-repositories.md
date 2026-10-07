@@ -1,20 +1,50 @@
 # Package repository layout
 
-These are starter directories only. No package manager repository is ready for clients yet. Do not publish an installation command until the packages, indexes, signatures, and client verification steps exist and have been tested.
+The APT archives are signed and contain an amd64 preview package. RPM and FreeBSD remain placeholders.
 
-## APT: Ubuntu, Linux Mint, and Debian
+## APT: Debian, Ubuntu, and Linux Mint
 
-Each distribution has an independent archive root:
-
-| Distribution | URL root | On-disk root |
+| Distribution | URL root | Verified environment |
 | --- | --- | --- |
-| Ubuntu | `https://dl.admins.net/apt/ubuntu/` | `html/apt/ubuntu/` |
-| Linux Mint | `https://dl.admins.net/apt/mint/` | `html/apt/mint/` |
-| Debian | `https://dl.admins.net/apt/debian/` | `html/apt/debian/` |
+| Debian | `https://dl.admins.net/apt/debian/` | Debian 12 container: update, download, install, run, purge |
+| Ubuntu | `https://dl.admins.net/apt/ubuntu/` | Ubuntu 24.04 container: update, download, install, run, purge |
+| Linux Mint | `https://dl.admins.net/apt/mint/` | Mint 22.3 host: update, download, extracted binary smoke checks, simulated install |
 
-Each root has `dists/` for release-specific indexes and `pool/main/` for `.deb` files. When a release is supported, create `dists/<codename>/main/binary-<architecture>/Packages` and its compressed version, plus a signed `InRelease` (or signed `Release` and `Release.gpg`) with hashes of the indexes. Generate these from the real `.deb` files; do not hand-write or copy an index between releases.
+All three independent roots use the `stable` archive suite and `main` component. This suite is independent of the operating system codename; the current application package is explicitly a **preview**, version `0.1.8~preview.20261006.1`. The package installs `/usr/bin/admins.net` and the `admins-net` command alias. It does not start services, change desktop startup, or expose ports. Service and desktop features are opt-in. Only amd64 is published. The executable requires `libc6 >= 2.34`; older systems and other architectures are not supported by this build. Optional runtime graphics libraries are recommendations rather than prerequisites for headless commands. Full desktop and remote-control functionality was not tested in these package checks. LMDE has not been tested separately.
 
-Mint's main editions use an Ubuntu base, while LMDE uses a Debian base. Keep separate roots until each package is tested against the actual release. A package may be shared later if its compatibility is verified. Add only the codenames and architectures that are built and tested.
+Each root contains real `.deb` files under `pool/main/a/admins-net/`, generated `Packages` and `Packages.gz`, SHA-256 by-hash indexes, and signed `InRelease`, `Release`, and `Release.gpg`. The shared public key is `html/apt/admins-net-archive-keyring.gpg`. Fingerprint:
+
+```text
+24F98D0A6DCC21D4CE504C11DF26CB725FB409CF
+```
+
+Client instructions are published at [APT installation instructions](../html/apt/INSTALL.md) and [the APT page](../html/apt/index.html). They use a repository-specific `Signed-By` key, following [Debian's APT authentication model](https://manpages.debian.org/bookworm/apt/apt-secure.8.en.html).
+
+### Build and update
+
+Install `python3`, `file`, `dpkg-dev`, `apt-utils`, and `gnupg` on the packaging host. Supply a built x86-64 Linux ELF binary and an explicit Debian package version. The initial package uses the current Hindsight port's `Admins.net/Build/lin_x64_c/admins_net`; it is newer than the legacy standalone download at `html/Linux/x64/Admins.net`.
+
+```sh
+export GNUPGHOME=/path/outside/the/repository/to/private-signing-directory
+python3 scripts/build-apt.py \
+  --binary ../Admins.net/Build/lin_x64_c/admins_net \
+  --version '0.1.8~preview.20261006.1' \
+  --signing-key 24F98D0A6DCC21D4CE504C11DF26CB725FB409CF
+scripts/verify-apt.sh
+```
+
+The private archive key is kept in the workspace's `.admins-net-apt-signing/` directory, outside this project's Git repository and public root, with directory permissions `0700`. Back up that directory securely before moving or cleaning this workspace; losing the key prevents future updates from being signed with the same identity. Only the public key and fingerprint may be committed. The local key is protected by filesystem permissions and has no passphrase for automated signing.
+
+Use a new package version whenever its contents change. The builder refuses to overwrite different bytes under an existing package filename, retains prior versions, and sets `SOURCE_DATE_EPOCH` from the input executable's modification time unless supplied explicitly. Indexes are generated independently for every root. Retained by-hash indexes allow APT clients to finish an update across metadata deployments. Publish all roots, public key, and instructions in one commit; short metadata caching is configured in `_headers`.
+
+The verification script isolates APT source lists, caches, and downloaded packages in a temporary directory without installing on the host. To verify installation and removal, run it inside disposable containers with `ADMINS_NET_TEST_INSTALL=1`:
+
+```sh
+docker run --rm -v "$PWD:/repo:ro" -e ADMINS_NET_TEST_INSTALL=1 debian:bookworm-slim bash /repo/scripts/verify-apt.sh
+docker run --rm -v "$PWD:/repo:ro" -e ADMINS_NET_TEST_INSTALL=1 ubuntu:24.04 bash /repo/scripts/verify-apt.sh
+```
+
+Release metadata currently has no `Valid-Until`: this static archive does not require periodic re-signing when unchanged. Signatures authenticate content but do not limit replay age. Refresh and re-sign indexes with each release.
 
 ## RPM-based Linux
 

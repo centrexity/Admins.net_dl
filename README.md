@@ -10,4 +10,4 @@ The homepage uses the transparent Admins.net favicon assets copied from `Admins.
 
 Cloudflare Pages redirects `/releases` and `/betas` (with or without a trailing slash) to the download homepage using `html/_redirects`.
 
-The `html/apt/`, `html/rpm/`, and `html/freebsd/` trees are placeholders for future package repositories. The RPM section is called "RPM-based Linux" in user-facing text while its URL stays `/rpm/`. These trees do not contain packages or valid repository metadata yet. See [package repository notes](docs/package-repositories.md) before publishing packages or install instructions.
+The `html/apt/` tree contains signed amd64 preview packages for Debian, Ubuntu, and Linux Mint. See [installation instructions](html/apt/INSTALL.md) and [package repository notes](docs/package-repositories.md) for verified platforms and release tooling. `html/rpm/` and `html/freebsd/` remain placeholders without packages or valid metadata. The RPM section is called "RPM-based Linux" while its URL stays `/rpm/`.

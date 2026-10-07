@@ -1,0 +1,20 @@
+Package: admins-net
+Architecture: amd64
+Version: 0.1.8~preview.20261006.1
+Priority: optional
+Section: admin
+Maintainer: Admins.net <packages@admins.net>
+Installed-Size: 963
+Depends: libc6 (>= 2.34)
+Recommends: libx11-6, libxtst6, libgl1, libglx0, libvulkan1, libwayland-client0, libglib2.0-0, libpangocairo-1.0-0, zlib1g
+Filename: pool/main/a/admins-net/admins-net_0.1.8~preview.20261006.1_amd64.deb
+Size: 363912
+MD5sum: 8d3f97e15460d43d30dc2b2ea70cb680
+SHA1: 98ad39e68d1daa4d282d329ce21b31c2f87fdb7d
+SHA256: f713994b6d9812585ba4230f6f974d8913aa387b48597a33c697e4ae8683575c
+SHA512: 6fdce09c27386d117063830041125c968c0b94f252cd2726e4044fe919418fb0a641cb8a9aea6400254706c6219eb36d4917ac963ba758ebfbfe10eb22f89e88
+Homepage: https://admins.net/
+Description: Admins.net desktop and system management preview
+ Command-line application with opt-in daemon, desktop session listener,
+ overlay, and HTTP/WebSocket system management tools.
+
