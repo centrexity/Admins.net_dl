@@ -12,3 +12,5 @@ When a build exists, publish versioned artifacts with checksums, verification gu
 Cloudflare Pages enforces an individual-file size limit; verify the current deployment limit before publishing OS images. An image that exceeds that limit needs a separately agreed hosting approach. These placeholders add no hosting service or expense.
 
 `html/assets/downloads.css` styles the landing page. Bump its query version when changing it. Existing Windows, Linux, OpenWRT, and APT links remain in place. `/releases` and `/betas` redirects remain unchanged.
+
+Public edition copy uses product-focused language without development badges. Keep download availability factual: the current cards say “Installer not currently listed” and must only gain download links when artifacts exist.
