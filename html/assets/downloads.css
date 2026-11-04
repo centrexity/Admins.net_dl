@@ -463,3 +463,14 @@ h2 {
 .edition-download .release-detail {
   margin-top:0
 }
+
+/* Three ExecOS editions: desktop and command line. */
+.execos-grid {
+  grid-template-columns:repeat(3,minmax(0,1fr))
+}
+
+@media(max-width:1000px) {
+  .execos-grid {
+    grid-template-columns:1fr
+  }
+}
