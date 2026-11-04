@@ -406,3 +406,60 @@ h2 {
 
 
 }
+
+/* ExecOS image selection and download placeholders. */
+.edition-download {
+  display:flex;
+  flex-direction:column;
+  gap:.75rem;
+  margin-top:auto;
+  padding-top:1.5rem;
+  border-top:1px solid #345065
+}
+
+.download-label {
+  font-size:.85rem;
+  font-weight:700;
+  color:#e1ebf3
+}
+
+.edition-download select {
+  width:100%;
+  min-width:0;
+  min-height:48px;
+  padding:.75rem;
+  border:1px solid #587186;
+  border-radius:8px;
+  background:#fff;
+  color:#12283b;
+  font:inherit
+}
+
+.edition-download-button {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  min-height:48px;
+  padding:.85rem 1rem;
+  border:1px solid #698195;
+  border-radius:8px;
+  background:#2e475b;
+  color:#d0dce5;
+  font:inherit;
+  font-size:.9rem;
+  font-weight:700
+}
+
+.edition-download-button:disabled {
+  cursor:not-allowed
+}
+
+.edition-download select:focus-visible,.edition-download-button:focus-visible {
+  outline:3px solid #ff6475;
+  outline-offset:4px
+}
+
+.edition-download .release-detail {
+  margin-top:0
+}
