@@ -1,0 +1,23 @@
+{
+  "release": "2026.11.12",
+  "channel": "preview",
+  "androidVersionCode": 3,
+  "androidSigning": "Android debug certificate; not a production auto-update feed",
+  "files": [
+    {
+      "url": "https://dl.admins.net/Linux/x64/Admins.net-2026.11.12",
+      "sha256": "1821901d1ecd1ec025eb631b573ff2b1ddc56123f1dbc5d2c6e7f59ac043bab1",
+      "bytes": 1132800
+    },
+    {
+      "url": "https://dl.admins.net/Windows/x64/Admins.net-2026.11.12.exe",
+      "sha256": "969d2bf233e9f10d62455dafe3c63960a4c9fad34ac47483fa4f8dc190e01985",
+      "bytes": 1202176
+    },
+    {
+      "url": "https://dl.admins.net/Android/mdm/admins-net-mdm-3-preview.apk",
+      "sha256": "e02e9d4b0f4cbda37fd8c64c66161f7ffa36ad69de8b41e132679c68550bccf2",
+      "bytes": 6308991
+    }
+  ]
+}
