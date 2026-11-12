@@ -10,6 +10,11 @@ Large images are stored outside the Git-deployed website at
 `/var/www/dl.admins.net/execos`. Apache serves that persistent directory with an
 Alias from the existing download virtual host, through the Cloudflare Tunnel.
 The former Cloudflare Pages file limit does not apply to this origin storage.
+The S3 poller force-refreshes only its remote-tracking main ref during its shallow
+fetch; otherwise ordinary new commits can be rejected as non-fast-forward at the
+shallow boundary. The installed deployer remains root-owned and is not replaced
+by website commits.
+
 Website deployments must preserve this directory and the installed Apache
 fragment `/config/dl.admins.net/execos.conf`.
 
