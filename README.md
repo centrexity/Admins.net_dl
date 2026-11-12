@@ -16,6 +16,6 @@ The `html/apt/` tree contains signed amd64 preview packages for Debian, Ubuntu, 
 
 The redesigned landing page uses `html/assets/downloads.css` and groups existing downloads by platform, package repository, and ExecOS edition. Existing artifact URLs are unchanged. RPM and FreeBSD are clearly marked planned rather than linked as usable repositories.
 
-ExecOS Titan, Ghost, and Core are in development; none has a published build. `html/execos/titan/` reserves Titan artifacts, and `html/execos/ghost/acer-cb5-571/` reserves the first Ghost target, Acer Chromebook CB5-571. These are placeholders, not supported installation targets. The page links to the public overview at `https://admins.net/execos`. See [release notes](docs/execos.md) before publishing images.
+ExecOS Ghost x64 has a bootable ISO with signed automatic updates at `/execos/ghost/x64/latest/ExecOS-x64.iso`. Large release files are served from persistent S3 storage outside the Git deployment tree. Titan, Core, and other Ghost hardware entries remain unlinked. See [release and hosting notes](docs/execos.md) for installation, recovery, verification, tested platforms, and update behavior.
 
 ExecOS Titan and Ghost are desktop editions; ExecOS Core is the minimal command-line edition. Core has a reserved download slot at `html/execos/core/` in the downloads repository, with no published image.

@@ -1,28 +1,44 @@
-# ExecOS release slots
+# ExecOS downloads
 
-The homepage's `#execos` section lists Titan, Ghost, and Core. All three remain in development without downloadable images. Ghost's first hardware target is Acer Chromebook CB5-571, not yet validated for release.
+ExecOS Ghost x64 is published at `/execos/ghost/x64/latest/ExecOS-x64.iso`.
+The homepage selects x64 generic by default and enables its download button.
+Other Ghost hardware selections, Titan and Core remain unlinked; their entries
+are not claims of validated releases. Existing desktop, OpenWRT, and APT URLs
+remain unchanged.
 
-Reserved artifact directories:
+Large images are stored outside the Git-deployed website at
+`/var/www/dl.admins.net/execos`. Apache serves that persistent directory with an
+Alias from the existing download virtual host, through the Cloudflare Tunnel.
+The former Cloudflare Pages file limit does not apply to this origin storage.
+Website deployments must preserve this directory and the installed Apache
+fragment `/config/dl.admins.net/execos.conf`.
 
-- `html/execos/titan/`
-- `html/execos/ghost/acer-cb5-571/`
+Each desktop release contains its bootable ISO, `release.txt`, `release.sig`,
+`public.pem`, `SHA256SUMS`, and `README.txt` with installation/recovery notes.
+Version directories are immutable. An atomic `latest` symlink selects the
+published version. The release publisher in the ExecOS workspace verifies build
+checksums, signed policy, and update payload before upload; the host checks
+transferred file checksums before switching the channel. Private keys are never
+uploaded. Do not treat a downloaded public key as automatic trust enrollment.
 
-When a build exists, publish versioned artifacts with checksums, verification guidance, requirements, tested hardware, and installation/recovery instructions; then add a real download link to the edition card. Do not link empty directories or invent versions. Never replace another project's binaries with an ExecOS image.
+Installed immutable Ghost/Titan desktops check signed metadata after startup
+and every six hours. Newer matching releases download and stage automatically,
+then wait for the user to restart. A current release only fetches small metadata.
+A custom administrator-supplied ISO URL remains a manual update source. Existing
+systems that predate automatic checking need one manual update to this release
+(or the documented trusted bootstrap if they lack the current update key).
 
-Cloudflare Pages enforces an individual-file size limit; verify the current deployment limit before publishing OS images. An image that exceeds that limit needs a separately agreed hosting approach. These placeholders add no hosting service or expense.
+The published x64 release was tested in QEMU with BIOS and UEFI boot. Physical
+hardware has not been certified by these VM tests. Installation erases the
+selected destination drive. Ghost has one system copy and no automatic previous
+system recovery; keep installation media and personal-file backups available.
 
-`html/assets/downloads.css` styles the landing page. Bump its query version when changing it. Existing Windows, Linux, OpenWRT, and APT links remain in place. `/releases` and `/betas` redirects remain unchanged.
-
-Public edition copy uses product-focused language without development badges. Keep download availability factual: Titan has a disabled Download ISO placeholder; Ghost has a native version selector and disabled Download button. Only enable downloads when artifacts exist.
+`html/assets/downloads.css` retains the existing visual design.
+`html/assets/execos-downloads.js` maps only the available Ghost x64 selection to
+the real ISO and disables unlinked selections. A direct x64 download is included
+for browsers without JavaScript. Core, Raspberry Pi and Chromebook update
+formats require their own publication contract and are not enabled here.
 
 ## Edition names and use terms
 
 The editions are ExecOS Titan (formerly Full), ExecOS Ghost, and ExecOS Core. All three are completely free to use, provided without warranty to the extent permitted by applicable law, and carry no guarantee of security. Describe security as an effort to follow best practices and use appropriate protective measures. Renaming/rebranding of ExecOS and its Admins.net branding is not permitted; third-party component licenses retain their own rights. The public terms are at `https://admins.net/terms#execos`. This wording does not establish a complete distribution license for future images.
-
-## Download controls
-
-Titan displays a Download ISO placeholder with no linked image. Ghost defaults to `---`, followed by x64 generic, x86 generic, M1 Mac, Acer Chromebook CB5-571, and Raspberry Pi aarch64, in that order. These are selector entries, not a claim of released or validated images. All download buttons stay disabled while no images are linked. The selector is native HTML and works without JavaScript. Before enabling a button, map each selected version to its real verified artifact and accompanying release information.
-
-## Desktop and command-line editions
-
-Titan and Ghost are desktop editions. Core is a minimal command-line edition without a desktop interface. Core has a dedicated download placeholder and reserved `html/execos/core/` release slot in the downloads repository; no image or hardware requirements are supplied yet. Keep Titan's hardware requirements scoped to Titan. The free-use, warranty, security, and branding terms apply to all three editions.
